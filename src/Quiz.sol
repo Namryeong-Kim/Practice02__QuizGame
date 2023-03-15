@@ -9,8 +9,8 @@ contract Quiz{
       uint min_bet; //베팅할 최소 금액
       uint max_bet; //베팅할 최대 금액
    }
-    // mapping(address => uint256)[] public bets; // 이거 안됨
-    mapping(uint256 => mapping(address => uint256)) public bets; //사람들이 베팅한 금액 [{0xaaaaa~:20}]
+    mapping(address => uint256)[] public bets; //사람들이 베팅한 금액 [{0xaaaaa~:20}]
+    mapping(address=>uint256) public bet;
     uint public vault_balance; //잔액?
     address owner=msg.sender; //주인
     mapping(uint => Quiz_item) public quizs; 
@@ -47,6 +47,7 @@ contract Quiz{
     function betToPlay(uint quizId) public payable {
         require(quizs[quizId].min_bet<=msg.value);
         require(quizs[quizId].max_bet>=msg.value);
+        bets.push();
         bets[quizId-1][msg.sender] += msg.value;
     }
 
